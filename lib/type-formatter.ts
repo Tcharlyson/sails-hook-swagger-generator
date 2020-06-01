@@ -1,4 +1,5 @@
-import { BlueprintActionTemplates, Modifiers, Action2Response, Defaults } from './interfaces';
+import { BlueprintActionTemplates, Modifiers, Action2Response, Defaults, NameKeyMap } from './interfaces';
+import { OpenApi } from '../types/openapi';
 
 /* eslint-disable @typescript-eslint/camelcase */
 /**
@@ -7,12 +8,15 @@ import { BlueprintActionTemplates, Modifiers, Action2Response, Defaults } from '
  * this modules helps us to stick with swagger specifications for formatting types
  */
 
+export type SwaggerTypeAlias = 'integer' | 'long' | 'bigint' | 'float' | 'double' | 'string' | 'byte' | 'binary' | 'boolean' | 'date' | 'datetime' | 'password' | 'object' | 'any';
+
 /**
  * this is used to map our sails types with the allowed type defintions based on swagger specification
  */
-export const swaggerTypes = {
+export const swaggerTypes: Record<SwaggerTypeAlias, OpenApi.UpdatedSchema> = {
   integer: { type: 'integer', format: 'int64', /* comments: 'signed 64 bits' */ }, // all JavaScript numbers 64-bit
   long: { type: 'integer', format: 'int64', /* comments: 'signed 64 bits' */ },
+  bigint: { type: 'integer' },
   float: { type: 'number', format: 'float' },
   double: { type: 'number', format: 'double' },
   string: { type: 'string' },
@@ -20,12 +24,10 @@ export const swaggerTypes = {
   binary: { type: 'string', format: 'binary', /* comments: 'any sequence of octets' */ },
   boolean: { type: 'boolean' },
   date: { type: 'string', format: 'date', /* comments: 'As defined by full-date - RFC3339' */ },
-  datetime: {
-    type: 'string',
-    format: 'date-time',
-    /* comments: 'As defined by date-time - RFC3339' */
-  },
-  password: { type: 'string', format: 'password', /* comments: 'A hint to UIs to obscure input' */ }
+  datetime: { type: 'string', format: 'date-time', /* comments: 'As defined by date-time - RFC3339' */ },
+  password: { type: 'string', format: 'password', /* comments: 'A hint to UIs to obscure input' */ },
+  object: { type: 'object' },
+  any: {},
 };
 
 /**
