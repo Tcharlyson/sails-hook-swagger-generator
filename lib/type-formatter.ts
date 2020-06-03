@@ -1,4 +1,4 @@
-import { BlueprintActionTemplates, Modifiers, Action2Response, Defaults, NameKeyMap } from './interfaces';
+import { BlueprintActionTemplates, Modifiers, Action2Response, Defaults } from './interfaces';
 import { OpenApi } from '../types/openapi';
 
 /* eslint-disable @typescript-eslint/camelcase */
